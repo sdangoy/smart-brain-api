@@ -50,17 +50,17 @@ app.post('/signin', (req,res) => {
 
     if (req.body.email === database.users[0].email && 
         req.body.password === database.users[0].password) {
-            res.json('success');
+            res.json(database.users[0]);
     } else {
         res.status(400).json('error logging in');
     }
 })
 
 app.post('/register', (req,res) => {
-    const { email, name, password } = req.body
-    bcrypt.hash("apples", null, null, function(err, hash) {
-        console.log(hash);
-    });
+    const { email, name } = req.body
+    // bcrypt.hash("apples", null, null, function(err, hash) {
+    //     console.log(hash);
+    // });
     
     database.users.push({
         id: '125',
@@ -69,6 +69,7 @@ app.post('/register', (req,res) => {
         entries: 0,
         joined: new Date()
     })
+
     res.json(database.users[database.users.length-1]);
 })
 
