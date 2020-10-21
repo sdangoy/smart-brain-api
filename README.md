@@ -7,4 +7,5 @@ Installed packages:
 body-parser: to parse and have access to req.body to read JSON and form data (https://www.npmjs.com/package/body-parser)
 express: builds server (https://www.npmjs.com/package/express)
 nodemon: to run scripts and make sure server is running (https://www.npmjs.com/package/nodemon)
-bcrypt-nodejs: (https://www.npmjs.com/package/bcrypt-nodejs)
+bcrypt-nodejs: hash function to secure passwords stored in database (https://www.npmjs.com/package/bcrypt-nodejs)
+cors: used to bypass Chrome security error when connecting back-end to front-end (https://www.npmjs.com/package/cors)
