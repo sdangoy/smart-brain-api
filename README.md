@@ -9,3 +9,5 @@ Installed packages:
 - nodemon: to run scripts and make sure server is running (https://www.npmjs.com/package/nodemon)
 - bcrypt-nodejs: hash function to secure passwords stored in database (https://www.npmjs.com/package/bcrypt-nodejs)
 - cors: used to bypass Chrome security error when connecting front-end to back-end by sending a CORS request (https://www.npmjs.com/package/cors)
+- knex: used to connect to database (http://knexjs.org/)
+- pg: PosgresSQL client for Node.js (https://www.npmjs.com/package/pg)
