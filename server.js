@@ -4,18 +4,22 @@ const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex')
 
-const postgres = knex({
+const db = knex({
         client: 'pg',
         connection: {
           host : '127.0.0.1',
-          user : 'sdangoy',
-          password : '',
+          user : 'postgres',
+          password : 'codingisnotfun',
           database : 'smart-brain'
         }, 
         pool: { min: 0, max: 7 }
 });
 
-console.log(postgres.select('*').from('users'));
+db.select('*').from('users').then(data => {
+    console.log(data);
+}).catch(error => {
+    console.log(error);
+});
 
 const app = express();
 
@@ -64,19 +68,12 @@ app.post('/signin', (req,res) => {
 })
 
 app.post('/register', (req,res) => {
-    const { email, name } = req.body
-    // bcrypt.hash("apples", null, null, function(err, hash) {
-    //     console.log(hash);
-    // });
-    
-    database.users.push({
-        id: '125',
-        name: name,
+    const { email, name } = req.body;
+    db('users').insert({
         email: email,
-        entries: 0,
+        name: name,
         joined: new Date()
-    })
-
+    }).then(console.log)
     res.json(database.users[database.users.length-1]);
 })
 
