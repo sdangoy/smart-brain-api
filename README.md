@@ -11,3 +11,4 @@ Installed packages:
 - cors: used to bypass Chrome security error when connecting front-end to back-end by sending a CORS request (https://www.npmjs.com/package/cors)
 - knex: used to connect to database (http://knexjs.org/)
 - pg: PosgresSQL client for Node.js (https://www.npmjs.com/package/pg)
+- dotenv-flow: used to set enivornmental variables to protect/make dynamic db info/API key and having multiple .env files (https://www.npmjs.com/package/dotenv)
