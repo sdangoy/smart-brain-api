@@ -5,7 +5,10 @@ const cors = require('cors');
 const knex = require('knex');
 require('dotenv-flow').config();
 
-console.log(process.env.TEST);
+const register = require('./controllers/register');
+const signin = require('./controllers/signin.js');
+const profile = require('./controllers/profile.js');
+const image = require('./controllers/image.js');
 
 const db = knex({
         client: 'pg',
@@ -30,56 +33,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send(database.users);
+    res.send('success');
 })
 
-app.post('/signin', (req,res) => {
-    if (req.body.email === database.users[0].email && 
-        req.body.password === database.users[0].password) {
-            res.json(database.users[0]);
-    } else {
-        res.status(400).json('error logging in');
-    }
-})
+app.post('/signin', signin.handleSignin(db, bcrypt))
 
-app.post('/register', (req,res) => {
-    const { email, name } = req.body;
-    db('users')
-        .returning('*')
-        .insert({
-            email: email,
-            name: name,
-            joined: new Date()
-        })
-    .then(user => {
-        res.json(user[0]);
-    })
-    .catch(err => res.status(400).json('Unable to register.'))
-})
+app.post('/register', register.handleRegister(db, bcrypt))
 
-app.get('/profile/:id', (req,res) => {
-    const { id } = req.params;
-    db.select('*').from('users').where({id})
-        .then(user => {
-            if (user.length) {
-                res.json(user[0]);
-            } else {
-                res.status(400).json('Not found')
-            }
-    })
-    .catch(err => res.status(400).json('Error getting user'))
-})
+app.get('/profile/:id', profile.handleProfileGet(db))
 
-app.put('/image', (req,res) => {
-    const { id } = req.body;
-    db('users').where('id', '=', id)
-        .increment('entries', 1)
-        .returning('entries')
-        .then(entries => {
-            res.json(entries[0]);
-        })
-        .catch(err => res.status(400).json('Unable to get entries'))
-})
+app.put('/image', image.handleImage(db))
 
 app.listen(3001, () => {
     console.log('app is running on port 3001');
