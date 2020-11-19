@@ -13,10 +13,9 @@ const image = require('./controllers/image.js');
 const db = knex({
         client: 'pg',
         connection: {
-          host : process.env.DATABASE_URL,
+          connectString : process.env.DATABASE_URL,
           ssl: true
-        }, 
-        pool: { min: 0, max: 7 }
+        }
 });
 
 db.select('*').from('users').then(data => {
